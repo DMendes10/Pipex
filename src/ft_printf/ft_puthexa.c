@@ -1,35 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error.c                                            :+:      :+:    :+:   */
+/*   ft_puthexa.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: diomende <diomende@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/10 18:28:41 by diogo             #+#    #+#             */
-/*   Updated: 2025/08/14 18:40:54 by diomende         ###   ########.fr       */
+/*   Created: 2025/05/01 17:44:10 by diomende          #+#    #+#             */
+/*   Updated: 2025/05/05 17:20:56 by diomende         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "ft_printf.h"
 
-void	return_error(char *error)
+int	ft_puthexa(unsigned int n, char c)
 {
-	perror (error);
-	exit(EXIT_FAILURE);
-}
+	unsigned int	base;
+	int				i;
+	char			*set;
 
-void	close_files(int *fd, int file)
-{
-	if (close(fd[0]) < 0 || close(fd[1]) < 0)
-		return_error("closing error");
-	if (close(file) < 0)
-		return_error("closing error");
-}
-
-void	invalid_command(char **cmd)
-{
-	ft_putstr_fd ("Command not found", 2);
-	ft_putstr_fd ("\n", 2);
-	free_array (cmd);
-	exit (127);
+	i = 0;
+	base = 16;
+	if (c == 'x')
+		set = "0123456789abcdef";
+	else
+		set = "0123456789ABCDEF";
+	if (n >= base)
+		i += ft_puthexa (n / base, c);
+	i += ft_putchar (set [n % base]);
+	return (i);
 }

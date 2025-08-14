@@ -1,35 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error.c                                            :+:      :+:    :+:   */
+/*   ft_putstr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: diomende <diomende@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/10 18:28:41 by diogo             #+#    #+#             */
-/*   Updated: 2025/08/14 18:40:54 by diomende         ###   ########.fr       */
+/*   Created: 2025/05/01 13:39:11 by diomende          #+#    #+#             */
+/*   Updated: 2025/05/05 17:23:02 by diomende         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "ft_printf.h"
 
-void	return_error(char *error)
+int	ft_putstr(char *s)
 {
-	perror (error);
-	exit(EXIT_FAILURE);
-}
+	int	i;
 
-void	close_files(int *fd, int file)
-{
-	if (close(fd[0]) < 0 || close(fd[1]) < 0)
-		return_error("closing error");
-	if (close(file) < 0)
-		return_error("closing error");
-}
-
-void	invalid_command(char **cmd)
-{
-	ft_putstr_fd ("Command not found", 2);
-	ft_putstr_fd ("\n", 2);
-	free_array (cmd);
-	exit (127);
+	i = 0;
+	if (!s)
+		return (ft_putstr("(null)"));
+	while (s[i])
+		i += ft_putchar(s[i]);
+	return (i);
 }
