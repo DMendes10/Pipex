@@ -6,7 +6,7 @@
 /*   By: diomende <diomende@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/19 17:00:44 by diomende          #+#    #+#             */
-/*   Updated: 2025/08/19 17:02:08 by diomende         ###   ########.fr       */
+/*   Updated: 2025/08/19 19:45:34 by diomende         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,15 +21,11 @@ char	*path_finder(char *cmd, char *envp[])
 	if (ft_strchr (cmd, '/') != NULL)
 		return (cmd);
 	if (!envp[0])
-	{
-		ft_putstr_fd (cmd, 2);
-		ft_putstr_fd (":Command not found\n", 2);
-		exit (1);
-	}
+		invalid_command (NULL, cmd);
 	while (ft_strnstr (envp[i], "PATH", 4) == NULL)
 		i++;
 	if (!envp[i])
-		return_error("Command not found\n");
+		invalid_command (NULL, cmd);
 	paths = ft_split (envp[i] + 5, ':');
 	return (path_check (cmd, paths));
 }
