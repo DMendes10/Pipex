@@ -6,7 +6,7 @@
 /*   By: diomende <diomende@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/10 17:05:17 by diogo             #+#    #+#             */
-/*   Updated: 2025/08/14 20:02:26 by diomende         ###   ########.fr       */
+/*   Updated: 2025/08/19 17:25:46 by diomende         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,12 +56,12 @@ void	exec_cmd(char *av, char *envp[])
 	cmd = ft_split (av, ' ');
 	if (!cmd || !cmd[0] || cmd[0][0] == '\0')
 	{
-		invalid_command(cmd);
+		invalid_command(cmd, cmd[0]);
 		exit (1);
 	}
 	path = path_finder(cmd[0], envp);
 	if (!path)
-		invalid_command (cmd);
+		invalid_command (cmd, cmd[0]);
 	if (execve(path, cmd, envp) == -1)
 	{
 		free_array (cmd);
@@ -69,67 +69,6 @@ void	exec_cmd(char *av, char *envp[])
 			free (path);
 		return_error(av);
 	}
-}
-
-char	*path_finder(char *cmd, char *envp[])
-{
-	char	**paths;
-	int		i;
-
-	i = 0;
-	if (ft_strchr (cmd, '/') != NULL)
-		return (cmd);
-	if (!envp[0])
-	{
-		ft_putstr_fd (cmd, 2);
-		ft_putstr_fd (":Command not found\n", 2);
-		exit (1);
-	}
-	while (ft_strnstr (envp[i], "PATH", 4) == NULL)
-		i++;
-	if (!envp[i])
-		return_error("Command not found\n");
-	paths = ft_split (envp[i] + 5, ':');
-	return (path_check (cmd, paths));
-}
-
-char	*path_check(char *cmd, char **paths)
-{
-	int		i;
-	char	*temp;
-	char	*new_path;
-
-	i = 0;
-	while (paths[i])
-	{
-		temp = ft_strjoin (paths[i], "/");
-		new_path = ft_strjoin (temp, cmd);
-		free (temp);
-		if (access (new_path, F_OK | X_OK) == 0)
-		{
-			free_array (paths);
-			return (new_path);
-		}
-		free (new_path);
-		i++;
-	}
-	free_array (paths);
-	return (NULL);
-}
-
-void	free_array(char **s)
-{
-	size_t	i;
-
-	i = 0;
-	if (!s)
-		return ;
-	while (s[i])
-	{
-		free (s[i]);
-		i++;
-	}
-	free (s);
 }
 
 int	ft_wait(pid_t *proc_id)
