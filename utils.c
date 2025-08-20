@@ -6,7 +6,7 @@
 /*   By: diomende <diomende@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/19 17:00:44 by diomende          #+#    #+#             */
-/*   Updated: 2025/08/19 19:45:34 by diomende         ###   ########.fr       */
+/*   Updated: 2025/08/20 16:27:09 by diomende         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ char	*path_check(char *cmd, char **paths)
 		temp = ft_strjoin (paths[i], "/");
 		new_path = ft_strjoin (temp, cmd);
 		free (temp);
-		if (access (new_path, F_OK | X_OK) == 0)
+		if (access (new_path, X_OK) == 0)
 		{
 			free_array (paths);
 			return (new_path);

@@ -6,7 +6,7 @@
 /*   By: diomende <diomende@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/10 17:05:17 by diogo             #+#    #+#             */
-/*   Updated: 2025/08/19 19:53:56 by diomende         ###   ########.fr       */
+/*   Updated: 2025/08/20 16:40:07 by diomende         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,10 @@ void	exec_cmd(char *av, char *envp[])
 	path = path_finder(cmd[0], envp);
 	if (!path)
 		invalid_command (cmd, cmd[0]);
+	if (access (path, F_OK) != 0)
+		invalid_command (cmd, cmd[0]);
+	if (access (path, X_OK) != 0)
+		no_perms_command (cmd, cmd[0]);
 	if (execve(path, cmd, envp) == -1)
 	{
 		free_array (cmd);
