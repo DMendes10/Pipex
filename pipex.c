@@ -6,7 +6,7 @@
 /*   By: diomende <diomende@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/10 17:05:17 by diogo             #+#    #+#             */
-/*   Updated: 2025/08/20 16:40:07 by diomende         ###   ########.fr       */
+/*   Updated: 2025/08/28 18:19:53 by diomende         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,10 +53,10 @@ void	exec_cmd(char *av, char *envp[])
 	char	*path;
 	char	**cmd;
 
-	cmd = ft_split (av, ' ');
+	cmd = ft_split_pipex (av, ' ');
 	if (!cmd || !cmd[0] || cmd[0][0] == '\0')
-		invalid_command(cmd, cmd[0]);
-	path = path_finder(cmd[0], envp);
+		invalid_command(cmd, av);
+	path = path_finder(cmd[0], envp, cmd);
 	if (!path)
 		invalid_command (cmd, cmd[0]);
 	if (access (path, F_OK) != 0)

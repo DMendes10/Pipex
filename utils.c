@@ -6,13 +6,13 @@
 /*   By: diomende <diomende@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/19 17:00:44 by diomende          #+#    #+#             */
-/*   Updated: 2025/08/20 16:27:09 by diomende         ###   ########.fr       */
+/*   Updated: 2025/08/28 17:51:25 by diomende         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-char	*path_finder(char *cmd, char *envp[])
+char	*path_finder(char *cmd, char *envp[], char **cmds)
 {
 	char	**paths;
 	int		i;
@@ -21,11 +21,11 @@ char	*path_finder(char *cmd, char *envp[])
 	if (ft_strchr (cmd, '/') != NULL)
 		return (cmd);
 	if (!envp[0])
-		invalid_command (NULL, cmd);
-	while (ft_strnstr (envp[i], "PATH", 4) == NULL)
+		invalid_command (cmds, cmd);
+	while (envp [i] && ft_strnstr (envp[i], "PATH", 4) == NULL)
 		i++;
 	if (!envp[i])
-		invalid_command (NULL, cmd);
+		invalid_command (cmds, cmd);
 	paths = ft_split (envp[i] + 5, ':');
 	return (path_check (cmd, paths));
 }
@@ -67,4 +67,44 @@ void	free_array(char **s)
 		i++;
 	}
 	free (s);
+}
+
+size_t	ft_count_words_pipex(const char *a, char c, int i)
+{
+	size_t	count;
+
+	count = 0;
+	while (a[i])
+	{
+		while (a[i] == c)
+			i++;
+		if (a[i] == '\'')
+		{
+			if (a[i - 1] == c)
+				count++;
+			i++;
+			if (end_quote_check (a, i))
+				while (a[i] != '\'')
+					i++;
+			else
+				return (0);
+			i++;
+		}
+		if (a[i] && a[i] != '\'' && a[i] != c)
+			count++;
+		while (a[i] && a[i] != c)
+			i++;
+	}
+	return (count);
+}
+
+int	end_quote_check(const char *s, int i)
+{
+	while (s[i])
+	{
+		if (s[i] == '\'')
+			return (1);
+		i++;
+	}
+	return (0);
 }

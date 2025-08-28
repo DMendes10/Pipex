@@ -1,12 +1,12 @@
 # **************************************************************************** #
 #                                                                              #
 #                                                         :::      ::::::::    #
-#    makefile                                           :+:      :+:    :+:    #
+#    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
 #    By: diomende <diomende@student.42lisboa.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/08/10 16:14:27 by diogo             #+#    #+#              #
-#    Updated: 2025/08/19 19:19:58 by diomende         ###   ########.fr        #
+#    Updated: 2025/08/27 16:03:13 by diomende         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ SRC_DIR = src
 LIBFT_DIR = $(SRC_DIR)/Libft
 LIBFT = $(LIBFT_DIR)/libft.a
 
-SRCS = pipex.c error.c utils.c
+SRCS = pipex.c error.c utils.c split_pipex.c
 
 OBJS = $(SRCS:.c=.o)
 
