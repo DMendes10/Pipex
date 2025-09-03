@@ -6,7 +6,7 @@
 /*   By: diomende <diomende@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/18 19:28:14 by diomende          #+#    #+#             */
-/*   Updated: 2025/08/27 18:52:27 by diomende         ###   ########.fr       */
+/*   Updated: 2025/09/03 20:05:28 by diomende         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,15 +22,20 @@ char	*ft_makestring(const char *s, char c, size_t *i)
 	size = 0;
 	while (s[size] != c && s[size] != '\0')
 	{
-		if (s[size] == '\'')
-			quotes++;
 		size++;
+		if (s[size] == '\'')
+		{
+			quotes++;
+			size++;
+			while (s[size] != '\'')
+				size++;
+		}
 	}
-	s2 = ft_calloc (sizeof (char), (size - quotes) + 1);
+	s2 = ft_calloc (sizeof (char), (size - quotes * 2) + 1);
 	if (s2 == NULL)
 		return (NULL);
-	ft_strlcpy_quotes (s2, s, (size - quotes) + 1);
-	(*i) += quotes;
+	ft_strlcpy_quotes (s2, s, (size - quotes * 2) + 1);
+	(*i) += quotes * 2;
 	return (s2);
 }
 

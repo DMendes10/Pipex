@@ -6,7 +6,7 @@
 /*   By: diomende <diomende@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/19 17:00:44 by diomende          #+#    #+#             */
-/*   Updated: 2025/08/28 17:51:25 by diomende         ###   ########.fr       */
+/*   Updated: 2025/09/03 20:07:01 by diomende         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,10 @@ size_t	ft_count_words_pipex(const char *a, char c, int i)
 	count = 0;
 	while (a[i])
 	{
+		if (a[i] && a[i] != '\'' && a[i - 1] != '\'' && a[i] != c)
+			count++;
+		while (a[i] && a[i] != c && a[i] != '\'')
+			i++;
 		while (a[i] == c)
 			i++;
 		if (a[i] == '\'')
@@ -90,10 +94,6 @@ size_t	ft_count_words_pipex(const char *a, char c, int i)
 				return (0);
 			i++;
 		}
-		if (a[i] && a[i] != '\'' && a[i] != c)
-			count++;
-		while (a[i] && a[i] != c)
-			i++;
 	}
 	return (count);
 }
