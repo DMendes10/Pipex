@@ -3,8 +3,6 @@
 `pipex` is a [42 School](https://42.fr) project that replicates the behavior of shell piping (`|`).
 It teaches process creation, file descriptors, redirection, and inter-process communication through the `pipe()` and `execve()` system calls.
 
-> “Programs must be written for people to read, and only incidentally for machines to execute.” — *Harold Abelson*
-
 ---
 
 ## 🧠 Project Overview
