@@ -22,7 +22,7 @@ Your program must execute **two commands**, connecting the output of the first t
 ### 1. Clone and compile
 
 ```bash
-git clone https://github.com/<your-username>/pipex.git
+git clone https://github.com/DMendes10/Pipex.git
 cd pipex
 make
 ```
